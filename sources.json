@@ -1,0 +1,256 @@
+{
+  "updated_at": "2026-07-09",
+  "script_repositories": [
+    {
+      "name": "xykt/IPQuality",
+      "url": "https://github.com/xykt/IPQuality",
+      "run": "bash <(curl -Ls https://IP.Check.Place) -p -f -j",
+      "category": ["ip_purity", "risk", "dnsbl", "mail", "media_ai_unlock"],
+      "automation": "script_json",
+      "notes": "主力纯净度脚本。支持 -x 代理、-j JSON、-o 输出文件。"
+    },
+    {
+      "name": "adsorgcn/vpscheck",
+      "url": "https://github.com/adsorgcn/vpscheck",
+      "run": "bash <(curl -sL https://raw.githubusercontent.com/adsorgcn/vpscheck/main/vpscheck.sh) -r 1",
+      "category": ["vps_check", "media_unlock", "ai_unlock", "route", "benchmark"],
+      "automation": "script_text",
+      "notes": "中文圈一键验 VPS，偏综合验货；IP 风险深度不如 IPQuality。"
+    },
+    {
+      "name": "lmc999/RegionRestrictionCheck",
+      "url": "https://github.com/lmc999/RegionRestrictionCheck",
+      "run": "bash <(curl -L -s check.unlock.media)",
+      "category": ["media_unlock", "region_restriction"],
+      "automation": "script_text",
+      "notes": "check.unlock.media 是常用入口。强项是流媒体区域解锁。"
+    },
+    {
+      "name": "oneclickvirt/ecs",
+      "url": "https://github.com/oneclickvirt/ecs",
+      "category": ["vps_check", "route", "benchmark", "ip_quality"],
+      "automation": "script_text",
+      "notes": "VPS 融合怪 Go 版，适合机器/线路/性能综合体检。"
+    },
+    {
+      "name": "spiritLHLS/ecs",
+      "url": "https://github.com/spiritLHLS/ecs",
+      "category": ["vps_check", "route", "benchmark", "ip_quality"],
+      "automation": "script_text",
+      "notes": "VPS 融合怪 Shell 版。"
+    },
+    {
+      "name": "snailyp/ip-checker",
+      "url": "https://github.com/snailyp/ip-checker",
+      "category": ["batch_proxy", "clash", "ip_purity"],
+      "automation": "local_project",
+      "notes": "适合 Clash/Mihomo 节点批量扫出口。"
+    }
+  ],
+  "risk_and_geo_sources": [
+    {
+      "name": "IPRisk.top",
+      "url": "https://iprisk.top/",
+      "category": ["ip_purity", "risk_aggregate"],
+      "automation": "manual_browser",
+      "notes": "中文圈聚合站，页面标注 16 源聚合，通常需要浏览器/Turnstile。"
+    },
+    {
+      "name": "Ping0.cc",
+      "url": "https://ping0.cc/geo",
+      "category": ["geo", "asn", "cn_common"],
+      "automation": "http_text_current_exit",
+      "notes": "可用 curl 获取当前出口 IP/地理位置/ASN/组织。"
+    },
+    {
+      "name": "IPPure",
+      "url": "https://ippure.com/",
+      "category": ["ip_purity", "risk", "browser_environment", "cn_common"],
+      "automation": "manual_browser",
+      "notes": "中文圈常用纯净度站点，页面依赖浏览器环境；当前仅加入人工复核链接，不做自动采集。"
+    },
+    {
+      "name": "LabIP.NET",
+      "url": "https://www.labip.net/",
+      "category": ["ip_type", "risk", "dns_leak", "webrtc", "cn_common"],
+      "automation": "manual_browser",
+      "notes": "IP 地址查询与风险检测工具；当前仅加入人工复核链接。"
+    },
+    {
+      "name": "PingIP",
+      "url": "https://pingip.cn/",
+      "category": ["ip_quality", "risk", "platform_fit", "cn_common"],
+      "automation": "manual_browser",
+      "notes": "中文圈常用 IP 质量/风控复核站点；curl 可能遇到 Cloudflare challenge，禁止绕过。"
+    },
+    {
+      "name": "IPLark",
+      "url": "https://iplark.com/check",
+      "category": ["ip_quality", "blacklist", "proxy_vpn", "cn_common"],
+      "automation": "manual_browser",
+      "notes": "IP 查询和纯净度复核站点；当前仅加入人工复核链接。"
+    },
+    {
+      "name": "IPIPseek",
+      "url": "https://check.ipipseek.com/",
+      "category": ["ip_attribute", "risk", "ip_purity", "dns_leak", "cn_common"],
+      "automation": "manual_browser",
+      "notes": "IP 属性、风险值、纯净度复核站点；当前仅加入人工复核链接。"
+    },
+    {
+      "name": "IPQualityScore / IPQS",
+      "url": "https://www.ipqualityscore.com/free-ip-lookup-proxy-vpn-test/lookup/{ip}",
+      "api": "https://ipqualityscore.com/api/json/ip/{key}/{ip}",
+      "category": ["fraud_score", "proxy_vpn_tor", "bot"],
+      "automation": "api_with_key",
+      "env": "IPQS_KEY"
+    },
+    {
+      "name": "Scamalytics",
+      "url": "https://scamalytics.com/ip/{ip}",
+      "category": ["fraud_score", "proxy_vpn_datacenter"],
+      "automation": "best_effort_page_or_via_ipquality",
+      "notes": "公网页面经常有 Cloudflare；建议以 IPQuality 聚合结果或人工打开复核为准。"
+    },
+    {
+      "name": "AbuseIPDB",
+      "url": "https://www.abuseipdb.com/check/{ip}",
+      "api": "https://api.abuseipdb.com/api/v2/check",
+      "category": ["abuse_reports", "confidence_score"],
+      "automation": "api_with_key",
+      "env": "ABUSEIPDB_KEY"
+    },
+    {
+      "name": "IPinfo",
+      "url": "https://ipinfo.io/{ip}",
+      "api": "https://ipinfo.io/{ip}/json",
+      "category": ["geo", "asn", "privacy", "anycast"],
+      "automation": "http_json"
+    },
+    {
+      "name": "ipapi.is",
+      "url": "https://ipapi.is/?q={ip}",
+      "api": "https://api.ipapi.is/?q={ip}",
+      "category": ["geo", "asn", "proxy_vpn_tor", "datacenter", "abuser"],
+      "automation": "http_json"
+    },
+    {
+      "name": "ipregistry",
+      "url": "https://ipregistry.co/",
+      "api": "https://api.ipregistry.co/{ip}?key={key}",
+      "category": ["geo", "asn", "security", "company"],
+      "automation": "api_with_key",
+      "env": "IPREGISTRY_KEY"
+    },
+    {
+      "name": "ip.sb",
+      "api": "https://api.ip.sb/geoip/{ip}",
+      "category": ["geo", "asn"],
+      "automation": "http_json"
+    },
+    {
+      "name": "ipwho.is",
+      "api": "https://ipwho.is/{ip}",
+      "category": ["geo", "asn"],
+      "automation": "http_json"
+    }
+  ],
+  "blacklist_and_mail_sources": [
+    {
+      "name": "MXToolbox Blacklist Check",
+      "url": "https://mxtoolbox.com/SuperTool.aspx?action=blacklist%3a{ip}&run=toolpage",
+      "category": ["mail_rbl", "blacklist"],
+      "automation": "manual_browser"
+    },
+    {
+      "name": "Spamhaus Check",
+      "url": "https://check.spamhaus.org/results?query={ip}",
+      "dnsbl": "zen.spamhaus.org",
+      "category": ["mail_rbl", "blacklist"],
+      "automation": "dnsbl_and_manual"
+    },
+    {
+      "name": "CleanTalk Blacklists",
+      "url": "https://cleantalk.org/blacklists/{ip}",
+      "api": "https://api.cleantalk.org/?method_name=ip_info&ip={ip}",
+      "dnsbl": "dnsbl.cleantalk.org",
+      "category": ["blacklist", "spam"],
+      "automation": "http_json_and_dnsbl"
+    },
+    {
+      "name": "SpamCop",
+      "dnsbl": "bl.spamcop.net",
+      "category": ["mail_rbl"],
+      "automation": "dnsbl"
+    },
+    {
+      "name": "Barracuda",
+      "dnsbl": "b.barracudacentral.org",
+      "category": ["mail_rbl"],
+      "automation": "dnsbl"
+    },
+    {
+      "name": "SORBS",
+      "dnsbl": "dnsbl.sorbs.net",
+      "category": ["mail_rbl"],
+      "automation": "dnsbl"
+    },
+    {
+      "name": "UCEPROTECT L1",
+      "dnsbl": "dnsbl-1.uceprotect.net",
+      "category": ["mail_rbl"],
+      "automation": "dnsbl",
+      "notes": "较激进，适合作为观察信号，不建议单独一票否决。"
+    }
+  ],
+  "browser_and_leak_sources": [
+    {
+      "name": "ip.skk.moe",
+      "url": "https://ip.skk.moe/",
+      "category": ["browser_ip", "network_trace"],
+      "automation": "manual_browser"
+    },
+    {
+      "name": "IPCheck.ing",
+      "url": "https://ipcheck.ing/",
+      "category": ["browser_ip", "fingerprint"],
+      "automation": "manual_browser"
+    },
+    {
+      "name": "BrowserLeaks IP",
+      "url": "https://browserleaks.com/ip",
+      "category": ["browser_ip", "webrtc", "dns_leak"],
+      "automation": "manual_browser"
+    },
+    {
+      "name": "Whoer.net",
+      "url": "https://whoer.net/",
+      "category": ["anonymity", "fingerprint", "dns_leak"],
+      "automation": "manual_browser"
+    },
+    {
+      "name": "BrowserScan",
+      "url": "https://www.browserscan.net/",
+      "category": ["fingerprint", "browser_ip"],
+      "automation": "manual_browser"
+    },
+    {
+      "name": "IPHey",
+      "url": "https://iphey.com/",
+      "category": ["fingerprint", "environment_consistency"],
+      "automation": "manual_browser"
+    },
+    {
+      "name": "DNSLeakTest",
+      "url": "https://www.dnsleaktest.com/",
+      "category": ["dns_leak"],
+      "automation": "manual_browser"
+    },
+    {
+      "name": "ipleak.net",
+      "url": "https://ipleak.net/",
+      "category": ["browser_ip", "webrtc", "dns_leak"],
+      "automation": "manual_browser"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+api_keys:
+  ipinfo: ""
+  ipregistry: ""
+  ipdata: ""
+  ipqualityscore: ""
+  abuseipdb: ""
+  maxmind_db_path: ""
+
+network:
+  timeout: 15
+  retries: 1
+  concurrency: 1
+  request_interval_seconds: 2
+  user_agent: "IPHealthChecker/1.0"
+
+dns:
+  resolvers:
+    - "1.1.1.1"
+    - "8.8.8.8"
+    - "9.9.9.9"
+    - "doh:cloudflare"
+    - "doh:google"
+  rbl_enabled: true
+
+checks:
+  basic_info: true
+  risk_score: true
+  rbl: true
+  consistency: true
+  dns_leak: true
+  stability: true
+
+stability:
+  repeats: 3
+  interval_seconds: 2
+  targets:
+    - "https://api.ipify.org"
+    - "https://www.google.com/generate_204"
+    - "https://www.gstatic.com/generate_204"
+    - "https://www.wikipedia.org"
+
+scoring:
+  reputation_weight: 35
+  consistency_weight: 20
+  rbl_weight: 15
+  stability_weight: 20
+  data_quality_weight: 10

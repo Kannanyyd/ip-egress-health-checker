@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>出口 IP 健康检查</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">自有出口 IP 审计</p>
+          <h1>出口质量工作台</h1>
+          <p class="subtitle">公开信誉、归属一致性、RBL、DNS 与轻量连通性综合检测</p>
+        </div>
+        <div class="header-status" role="status" aria-live="polite">
+          <span class="status-dot"></span>
+          <span id="run-state">准备就绪</span>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <section class="input-panel" aria-labelledby="input-title">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">检测队列</p>
+              <h2 id="input-title">输入 IP</h2>
+              <p class="section-copy">默认识别当前出口；添加多个 IP 后会按评分排序。</p>
+            </div>
+            <button class="icon-button" id="add-row" type="button" title="添加 IP" aria-label="添加 IP">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+            </button>
+          </div>
+
+          <form id="ip-form" class="ip-form">
+            <div id="ip-list" class="ip-list"></div>
+            <div class="form-actions">
+              <button class="primary-button" type="submit">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 3 14 9-14 9V3Z" /></svg>
+                开始检测
+              </button>
+              <button class="ghost-button" id="clear-all" type="button">清空</button>
+            </div>
+          </form>
+
+          <div class="input-hints">
+            <span>低频请求</span>
+            <span>不绕过验证</span>
+            <span>报告写入 reports/</span>
+          </div>
+        </section>
+
+        <section class="result-panel" aria-labelledby="result-title">
+          <div class="result-header">
+            <div>
+              <p class="eyebrow">检测结果</p>
+              <h2 id="result-title">综合排名</h2>
+            </div>
+            <div class="summary-strip" id="summary-strip"></div>
+          </div>
+
+          <div class="results-layout">
+            <div class="results-main">
+              <div class="rank-cards" id="rank-cards"></div>
+
+              <div class="table-wrap">
+                <table class="score-table" id="score-table">
+                  <thead>
+                    <tr>
+                      <th>排名</th>
+                      <th>IP</th>
+                      <th>总分</th>
+                      <th>IP 画像</th>
+                      <th>归属</th>
+                      <th>公开信誉</th>
+                      <th>一致性</th>
+                      <th>RBL</th>
+                      <th>稳定性</th>
+                      <th>数据</th>
+                    </tr>
+                  </thead>
+                  <tbody id="score-body">
+                    <tr class="empty-row"><td colspan="10">等待检测</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <aside class="detail-panel" id="detail-panel" aria-live="polite">
+              <div class="detail-empty">选择一行查看详情</div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <template id="ip-row-template">
+      <div class="ip-row">
+        <input class="ip-input" name="ip" inputmode="decimal" placeholder="例如 <IP_ADDRESS>" autocomplete="off" />
+        <button class="icon-button subtle remove-row" type="button" title="移除" aria-label="移除 IP">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+    </template>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>

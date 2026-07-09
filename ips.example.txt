@@ -1,0 +1,4 @@
+# One authorized IP per line.
+# Keep public examples generic; do not commit real exit IPs.
+# <IP_ADDRESS_1>
+# <IP_ADDRESS_2>

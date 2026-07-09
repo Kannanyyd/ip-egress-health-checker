@@ -1,0 +1,13 @@
+[
+  {
+    "name": "current"
+  },
+  {
+    "name": "local-socks",
+    "proxy": "socks5h://USER:PASS@PROXY_HOST:PORT"
+  },
+  {
+    "name": "known-ip-example",
+    "ip": "<IP_ADDRESS>"
+  }
+]

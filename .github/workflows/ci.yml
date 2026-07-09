@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Privacy scan
+        run: |
+          python tools/privacy_scan.py
+      - name: Compile
+        run: |
+          python -m py_compile main.py web.py ip_audit.py ip_health_checker/*.py ip_health_checker/collectors/*.py ip_health_checker/checks/*.py
+      - name: Dry run
+        run: |
+          python main.py --proxies proxies.example.txt --dry-run

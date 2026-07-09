@@ -1,0 +1,9 @@
+# Safe default profile does not automatically probe target websites.
+# Use this only for your own endpoints if you later add an explicit reachability check.
+target_sites:
+  - name: cloudflare_trace
+    url: "https://www.cloudflare.com/cdn-cgi/trace"
+    expected_status: [200]
+  - name: owned_health_endpoint
+    url: "https://example.com/health"
+    expected_status: [200, 204]

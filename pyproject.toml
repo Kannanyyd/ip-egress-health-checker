@@ -1,0 +1,13 @@
+[project]
+name = "ip-health-checker"
+version = "0.1.0"
+description = "Self-owned VPS/proxy exit IP health checker"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+pretty = ["PyYAML>=6.0", "Jinja2>=3.1"]
+
+[project.scripts]
+ip-health-checker = "ip_health_checker.main:main"
+ip-health-checker-web = "ip_health_checker.web:main"
